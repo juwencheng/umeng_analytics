@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umenganalytics/umenganalytics.dart';
-
+import 'package:umenganalytics/umeng_analytics_observer.dart';
 void main() {
 
   runApp(MyApp());
@@ -21,6 +21,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [
+        UmengAnalyticsObserver(),
+      ],
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:umenganalytics/umenganalytics.dart';
 import 'package:umenganalytics/umeng_analytics_observer.dart';
-void main() {
 
+void main() {
   runApp(MyApp());
 }
 
@@ -15,7 +15,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Umenganalytics.init(androidKey: "5e607074895ccaf7f50001ca", iOSKey: "", logEnable: true);
+    Umenganalytics.init(
+        androidKey: "5e607074895ccaf7f50001ca", iOSKey: "", logEnable: true);
   }
 
   @override
@@ -45,10 +46,8 @@ class _MyAppState extends State<MyApp> {
             FlatButton(
               child: Text("记录事件"),
               onPressed: () {
-                Umenganalytics.onEvent("test", {
-                  "key1":"value1",
-                  "key2":"value2"
-                });
+                Umenganalytics.onEvent(
+                    "test", {"key1": "value1", "key2": "value2"});
               },
             ),
             FlatButton(

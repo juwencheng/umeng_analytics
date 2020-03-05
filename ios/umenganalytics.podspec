@@ -16,8 +16,13 @@ umeng analytics for flutter
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.dependency 'UMCCommon'
+  s.dependency 'UMCAnalytics'
   s.platform = :ios, '8.0'
+  s.framework = 'CoreTelephony', 'SystemConfiguration'
+  s.libraries = 'z', 'sqlite3'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  
 end

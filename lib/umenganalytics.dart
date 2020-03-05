@@ -47,6 +47,13 @@ class Umenganalytics {
     });
   }
 
+  static void onEventLabel(String event, String label) {
+    _channel.invokeMethod("onEvent", {
+      "event": event,
+      "data": label,
+    });
+  }
+
   static void onError(String errorMessage) {
     _channel.invokeMethod("onError", errorMessage);
   }

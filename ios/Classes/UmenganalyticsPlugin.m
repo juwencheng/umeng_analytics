@@ -20,7 +20,7 @@
   }else if ([@"onPageEnd" isEqualToString:call.method]) {
       [self onPageEnd:call];
   }else if ([@"onEvent" isEqualToString:call.method]) {
-      [self logEventObj:call];
+      [self logEvent:call];
   }else if ([@"onError" isEqualToString:call.method]) {
       [self reportError:call];
   } else {
@@ -56,7 +56,7 @@
     }
 }
 
-- (void)logEventObj:(FlutterMethodCall *)call {
+- (void)logEvent:(FlutterMethodCall *)call {
     NSDictionary *arguments = [call arguments];
     if ([arguments isKindOfClass:[NSDictionary class]]) {
         NSString *event = arguments[@"event"];
@@ -64,6 +64,8 @@
             NSDictionary *data = arguments[@"data"];
             if ([data isKindOfClass:[NSDictionary class]]) {
                 [MobClick event:event attributes:data];
+            }else if ([data isKindOfClass:[NSString class]]) {
+                [MobClick event:event label:[NSString stringWithFormat:@"%@", data]];
             }
         }
     }

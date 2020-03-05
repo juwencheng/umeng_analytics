@@ -7,8 +7,8 @@ class UmengAnalyticsObserver extends RouteObserver<PageRoute<dynamic>> {
   void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {
     super.didPush(route, previousRoute);
     if (route is PageRoute) {
-      Umenganalytics.onPageEnd(previousRoute.settings.name);
-      Umenganalytics.onPageStart(route.settings.name);
+      onPageEnd(previousRoute);
+      onPageStart(route);
     }
   }
 
@@ -16,8 +16,8 @@ class UmengAnalyticsObserver extends RouteObserver<PageRoute<dynamic>> {
   void didReplace({Route<dynamic> newRoute, Route<dynamic> oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     if (newRoute is PageRoute) {
-      Umenganalytics.onPageEnd(oldRoute.settings.name);
-      Umenganalytics.onPageStart(newRoute.settings.name);
+      onPageEnd(oldRoute);
+      onPageStart(newRoute);
     }
   }
 
@@ -25,8 +25,20 @@ class UmengAnalyticsObserver extends RouteObserver<PageRoute<dynamic>> {
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
     super.didPop(route, previousRoute);
     if (previousRoute is PageRoute && route is PageRoute) {
+      onPageEnd(route);
+      onPageStart(previousRoute);
+    }
+  }
+  
+  void onPageEnd(Route route) {
+    if (route != null && route.settings != null) {
       Umenganalytics.onPageEnd(route.settings.name);
-      Umenganalytics.onPageStart(previousRoute.settings.name);
+    }
+  }
+  
+  void onPageStart(Route route) {
+    if (route != null && route.settings != null) {
+      Umenganalytics.onPageStart(route.settings.name);
     }
   }
 }

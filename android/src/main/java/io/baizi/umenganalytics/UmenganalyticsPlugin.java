@@ -73,7 +73,6 @@ public class UmenganalyticsPlugin implements FlutterPlugin, MethodCallHandler {
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         switch (call.method) {
             case "init":
-                getTestDeviceInfo(context);
                 initUmengAnalytics(call, result);
                 break;
             case "onPageStart":
@@ -83,7 +82,7 @@ public class UmenganalyticsPlugin implements FlutterPlugin, MethodCallHandler {
                 onPageEnd(call);
                 break;
             case "onEvent":
-                logEventObj(call);
+                logEvent(call);
                 break;
             case "onError":
                 reportError(call);
@@ -168,22 +167,17 @@ public class UmenganalyticsPlugin implements FlutterPlugin, MethodCallHandler {
      *
      * @param call method
      */
-    private void logEventObj(@NonNull MethodCall call) {
-        String event = call.argument("event");
-        Map<String, Object> data = call.argument("data");
-        if (event != null && data != null) {
-            MobclickAgent.onEventObject(context, event, data);
-        }
-    }
-
-    /**
-     * 记录事件
-     *
-     * @param call method
-     */
     private void logEvent(@NonNull MethodCall call) {
-
-        MobclickAgent.onEvent(context, "play_music", "s1");
+        String event = call.argument("event");
+        Object dataObj = call.argument("data");
+        if (dataObj instanceof  Map) {
+            Map<String, Object> data = (Map<String, Object>)dataObj;
+            if (event != null && data != null) {
+                MobclickAgent.onEventObject(context, event, data);
+            }
+        }else if (dataObj instanceof String) {
+            MobclickAgent.onEvent(context, event, (String)dataObj);
+        }
     }
 
     /**

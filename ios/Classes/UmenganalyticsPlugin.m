@@ -1,11 +1,12 @@
 #import "UmenganalyticsPlugin.h"
 #import <UMCommon/UMCommon.h>
-#import <UMAnalytics/MobClick.h>
+#import <UMCommon/MobClick.h>
+
 
 @implementation UmenganalyticsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"umenganalytics"
+      methodChannelWithName:@"io.baizi.umenganalytics"
             binaryMessenger:[registrar messenger]];
   UmenganalyticsPlugin* instance = [[UmenganalyticsPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
